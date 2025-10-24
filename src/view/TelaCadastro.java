@@ -7,11 +7,10 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import javax.swing.BorderFactory; // Import que faltava
+import javax.swing.BorderFactory;
 
 public class TelaCadastro extends JFrame {
 
-    // --- Constantes de Estilo ---
     private static final Color COR_FUNDO_ESCURO = new Color(18, 18, 18);
     private static final Color COR_CAMPO_TEXTO = new Color(31, 31, 31);
     private static final Color COR_AZUL_DESTAQUE = new Color(0, 122, 255);
@@ -20,7 +19,6 @@ public class TelaCadastro extends JFrame {
     private static final Color COR_BORDA_PADRAO = new Color(80, 80, 80); // Cor que faltava
     private static final Font FONTE_PADRAO = new Font("Segoe UI", Font.PLAIN, 14);
     private static final Font FONTE_TITULO = new Font("Segoe UI", Font.BOLD, 28);
-    // --------------------------------------------------------
 
     private JTextField txtNome;
     private JTextField txtEmail;
@@ -32,12 +30,11 @@ public class TelaCadastro extends JFrame {
     private JLabel lblJaTenhoConta;
     private CadastroController controller;
 
-    // --- VARIÁVEIS ADICIONADAS ---
     private ImageIcon iconOlhoAberto;
     private ImageIcon iconOlhoFechado;
     private JToggleButton btnVerSenha;
     private JToggleButton btnVerConfirmaSenha;
-    // ----------------------------
+
 
     public TelaCadastro(String tipoUsuarioInicial) {
         this.controller = new CadastroController(this);
@@ -52,31 +49,23 @@ public class TelaCadastro extends JFrame {
         painelPrincipal.setBorder(new EmptyBorder(40, 40, 40, 40));
         setContentPane(painelPrincipal);
 
-        // --- CARREGAMENTO DOS ÍCONES ADICIONADO ---
         try {
-            // O ClassLoader procura a partir da raiz do classpath (a pasta 'out/')
-            // O caminho correto é apenas o nome do arquivo, pois ele está na raiz.
             URL locationOlhoAberto = getClass().getClassLoader().getResource("olho_aberto.png");
             URL locationOlhoFechado = getClass().getClassLoader().getResource("olho_fechado.png");
 
-            // Esta verificação é ESSENCIAL para evitar o erro "location is null"
             if (locationOlhoAberto == null || locationOlhoFechado == null) {
-                // Se cair aqui, os arquivos não foram encontrados.
-                // Verifique se os nomes estão corretos e se 'resources' está marcada.
                 throw new RuntimeException("Não foi possível encontrar os ícones de olho. Verifique a pasta 'resources'.");
             }
 
-            // Se passou da verificação, os locais (locations) são válidos
             iconOlhoAberto = new ImageIcon(locationOlhoAberto);
             iconOlhoFechado = new ImageIcon(locationOlhoFechado);
 
         } catch (Exception e) {
             System.err.println("Erro ao carregar os ícones de olho: " + e.getMessage());
-            e.printStackTrace(); // Bom para ver o erro completo
+            e.printStackTrace();
             iconOlhoAberto = null;
             iconOlhoFechado = null;
         }
-        // ---------------------------------------
 
         JLabel lblTitulo = new JLabel("Crie sua Conta");
         lblTitulo.setFont(FONTE_TITULO);
@@ -89,7 +78,6 @@ public class TelaCadastro extends JFrame {
         JLabel lblEmail = criarLabel("Email");
         txtEmail = criarCampoDeTexto();
 
-        // --- PAINEL DE SENHA (CAMPO + BOTÃO) ---
         JLabel lblSenha = criarLabel("Senha");
         txtSenha = criarCampoDeSenha();
         btnVerSenha = criarBotaoVerSenha();
@@ -103,9 +91,7 @@ public class TelaCadastro extends JFrame {
                 BorderFactory.createLineBorder(COR_BORDA_PADRAO),
                 BorderFactory.createEmptyBorder(5, 10, 5, 5)
         ));
-        // ---------------------------------------
 
-        // --- PAINEL DE CONFIRMAR SENHA (CAMPO + BOTÃO) ---
         JLabel lblConfirmaSenha = criarLabel("Confirmar Senha");
         txtConfirmaSenha = criarCampoDeSenha();
         btnVerConfirmaSenha = criarBotaoVerSenha();
@@ -119,7 +105,6 @@ public class TelaCadastro extends JFrame {
                 BorderFactory.createLineBorder(COR_BORDA_PADRAO),
                 BorderFactory.createEmptyBorder(5, 10, 5, 5)
         ));
-        // ---------------------------------------
 
         rdoUsuario = criarRadioButton("Usuário", tipoUsuarioInicial.equals("user"));
         rdoVendedor = criarRadioButton("Vendedor", tipoUsuarioInicial.equals("vendedor"));
@@ -141,16 +126,11 @@ public class TelaCadastro extends JFrame {
         lblJaTenhoConta.setForeground(COR_TEXTO_CINZA);
         lblJaTenhoConta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        // Layout
         GroupLayout layout = new GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(layout);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
 
-
-        // ###############################################################
-        // ### AQUI ESTÁ A CORREÇÃO ###
-        // ###############################################################
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addComponent(lblTitulo, GroupLayout.Alignment.LEADING)
@@ -168,10 +148,6 @@ public class TelaCadastro extends JFrame {
                         .addComponent(btnCadastrar, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblJaTenhoConta)
         );
-        // ###############################################################
-        // ### FIM DA CORREÇÃO ###
-        // ###############################################################
-
 
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
@@ -198,7 +174,7 @@ public class TelaCadastro extends JFrame {
 
         configurarListeners();
 
-        pack(); // Esta é a linha 170 do seu erro. Agora ela funcionará.
+        pack();
         setLocationRelativeTo(null);
     }
 
@@ -206,10 +182,8 @@ public class TelaCadastro extends JFrame {
         btnCadastrar.addActionListener(controller::acaoBotaoCadastrar);
         aplicarEfeitoHoverLink(lblJaTenhoConta);
 
-        // --- LISTENERS DOS BOTÕES DE OLHO ADICIONADOS ---
         configurarBotaoVerSenha(btnVerSenha, txtSenha);
         configurarBotaoVerSenha(btnVerConfirmaSenha, txtConfirmaSenha);
-        // ---------------------------------------------
 
         lblJaTenhoConta.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -219,25 +193,22 @@ public class TelaCadastro extends JFrame {
         });
     }
 
-    // --- NOVO MÉTODO HELPER ADICIONADO ---
     private void configurarBotaoVerSenha(JToggleButton botao, JPasswordField campo) {
         botao.addActionListener(e -> {
             if (botao.isSelected()) {
-                campo.setEchoChar((char) 0); // Mostrar senha
+                campo.setEchoChar((char) 0);
                 if (iconOlhoAberto != null) {
                     botao.setIcon(iconOlhoAberto);
                 }
             } else {
-                campo.setEchoChar('•'); // Ocultar senha
+                campo.setEchoChar('•');
                 if (iconOlhoFechado != null) {
                     botao.setIcon(iconOlhoFechado);
                 }
             }
         });
     }
-    // ------------------------------------
 
-    // Getters para o controller
     public String getNome() { return txtNome.getText(); }
     public String getEmail() { return txtEmail.getText(); }
     public String getSenha() { return new String(txtSenha.getPassword()); }
@@ -245,8 +216,6 @@ public class TelaCadastro extends JFrame {
     public String getTipoUsuario() { return rdoUsuario.isSelected() ? "user" : "vendedor"; }
     public void exibirMensagem(String mensagem) { JOptionPane.showMessageDialog(this, mensagem); }
 
-
-    // --- Métodos de Estilo (copiados da sua TelaLogin) ---
     private JLabel criarLabel(String texto) {
         JLabel label = new JLabel(texto);
         label.setFont(FONTE_PADRAO);
@@ -267,20 +236,17 @@ public class TelaCadastro extends JFrame {
         return campo;
     }
 
-    // --- MÉTODO MODIFICADO (sem borda) ---
     private JPasswordField criarCampoDeSenha() {
         JPasswordField campo = new JPasswordField();
         campo.setFont(FONTE_PADRAO);
         campo.setBackground(COR_CAMPO_TEXTO);
         campo.setForeground(COR_TEXTO_BRANCO);
         campo.setCaretColor(COR_TEXTO_BRANCO);
-        campo.setBorder(null); // <-- Borda removida
+        campo.setBorder(null);
         campo.setEchoChar('•');
         return campo;
     }
-    // ------------------------------------
 
-    // --- NOVO MÉTODO ADICIONADO (copiado da TelaLogin) ---
     private JToggleButton criarBotaoVerSenha() {
         JToggleButton botao = new JToggleButton();
 
@@ -298,7 +264,6 @@ public class TelaCadastro extends JFrame {
         botao.setPreferredSize(new Dimension(40, 40));
         return botao;
     }
-    // ----------------------------------------------------
 
     private JRadioButton criarRadioButton(String texto, boolean selecionado) {
         JRadioButton radio = new JRadioButton(texto, selecionado);
@@ -309,7 +274,6 @@ public class TelaCadastro extends JFrame {
         return radio;
     }
 
-    // Classe interna para o botão (copiada da sua TelaLogin)
     class BotaoGradiente extends JButton {
         private boolean isHovered = false;
 

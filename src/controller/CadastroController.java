@@ -19,12 +19,10 @@ public class CadastroController {
         String email = view.getEmail();
         String senha = view.getSenha();
         String confirmaSenha = view.getConfirmaSenha();
-        String tipo = view.getTipoUsuario(); // "user" ou "vendedor"
+        String tipo = view.getTipoUsuario();
 
-        // Converte para o padrão do banco ("comprador" ou "vendedor")
         String tipoBanco = tipo.equals("user") ? "comprador" : "vendedor";
 
-        // 1. Validações
         if (nome.trim().isEmpty() || email.trim().isEmpty() || senha.trim().isEmpty()) {
             view.exibirMensagem("Preencha todos os campos.");
             return;
@@ -34,20 +32,17 @@ public class CadastroController {
             return;
         }
 
-        // 2. Lógica de Cadastro
         Usuario novoUsuario = new Usuario();
         novoUsuario.setNome(nome);
         novoUsuario.setEmail(email);
-        novoUsuario.setSenha(senha); // Passa a senha em texto puro
+        novoUsuario.setSenha(senha);
         novoUsuario.setTipo(tipoBanco);
 
-        // O DAO (modificado abaixo) salvará essa senha em texto puro
         boolean sucesso = usuarioDAO.cadastrar(novoUsuario);
 
-        // 3. Feedback
         if (sucesso) {
             view.exibirMensagem("Cadastro realizado com sucesso! \nFaça o login.");
-            view.dispose(); // Fecha a tela de cadastro
+            view.dispose();
         } else {
             view.exibirMensagem("Erro ao cadastrar. (O email pode já estar em uso).");
         }

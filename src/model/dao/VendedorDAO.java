@@ -10,14 +10,6 @@ import java.sql.SQLException;
 
 public class VendedorDAO {
 
-    // SQL para sua tabela (exemplo)
-    // CREATE TABLE vendedores (
-    //   id INT AUTO_INCREMENT PRIMARY KEY,
-    //   nomeLoja VARCHAR(100) NOT NULL,
-    //   email VARCHAR(100) NOT NULL UNIQUE,
-    //   senha VARCHAR(100) NOT NULL
-    // );
-
     public boolean cadastrar(Vendedor vendedor) {
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
@@ -64,6 +56,4 @@ public class VendedorDAO {
         }
         return null;
     }
-
-    // ... método atualizarSenha para vendedor ...
 }

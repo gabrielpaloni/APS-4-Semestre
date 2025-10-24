@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 
 public class TelaResetSenha extends JFrame {
 
-    // --- Constantes de Estilo (copiadas da sua TelaLogin) ---
     private static final Color COR_FUNDO_ESCURO = new Color(18, 18, 18);
     private static final Color COR_CAMPO_TEXTO = new Color(31, 31, 31);
     private static final Color COR_AZUL_DESTAQUE = new Color(0, 122, 255);
@@ -18,12 +17,11 @@ public class TelaResetSenha extends JFrame {
     private static final Color COR_BORDA_PADRAO = new Color(80, 80, 80);
     private static final Font FONTE_PADRAO = new Font("Segoe UI", Font.PLAIN, 14);
     private static final Font FONTE_TITULO = new Font("Segoe UI", Font.BOLD, 28);
-    // --------------------------------------------------------
 
     private JTextField txtEmail;
     private JButton btnRedefinir;
     private JLabel lblVoltarAoLogin;
-    private String tipoUsuario; // "user" ou "vendedor"
+    private String tipoUsuario;
 
     private ResetSenhaController controller;
 
@@ -96,18 +94,15 @@ public class TelaResetSenha extends JFrame {
         lblVoltarAoLogin.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                dispose(); // Apenas fecha esta tela
+                dispose();
             }
         });
     }
 
-    // Getters para o controller
     public String getEmail() { return txtEmail.getText(); }
     public String getTipoUsuario() { return tipoUsuario; }
     public void exibirMensagem(String mensagem) { JOptionPane.showMessageDialog(this, mensagem); }
 
-
-    // --- Métodos de Estilo (copiados) ---
     private JLabel criarLabel(String texto) {
         JLabel label = new JLabel(texto);
         label.setFont(FONTE_PADRAO);
@@ -141,7 +136,6 @@ public class TelaResetSenha extends JFrame {
         });
     }
 
-    // Classe interna do botão
     class BotaoGradiente extends JButton {
         private boolean isHovered = false;
         public BotaoGradiente(String text) {

@@ -25,9 +25,7 @@ public class ResetSenhaController {
             return;
         }
 
-        // 1. Verifica se o email existe no banco
         if (usuarioDAO.emailExists(email, tipoBanco)) {
-            // 2. Se existir, abre o diálogo para a nova senha
             mostrarDialogoNovaSenha(email);
         } else {
             view.exibirMensagem("Email não encontrado para este tipo de conta.");
@@ -35,7 +33,6 @@ public class ResetSenhaController {
     }
 
     private void mostrarDialogoNovaSenha(String email) {
-        // Cria um painel customizado para o JOptionPane
         JPanel panel = new JPanel(new GridLayout(2, 2, 5, 5));
         JLabel lblNovaSenha = new JLabel("Nova Senha:");
         JPasswordField txtNovaSenha = new JPasswordField(10);
@@ -59,12 +56,11 @@ public class ResetSenhaController {
                 return;
             }
 
-            // 3. Atualiza o banco com a senha em TEXTO PURO
             boolean sucesso = usuarioDAO.atualizarSenha(email, novaSenha);
 
             if (sucesso) {
                 view.exibirMensagem("Senha redefinida com sucesso!");
-                view.dispose(); // Fecha a tela de redefinição
+                view.dispose();
             } else {
                 view.exibirMensagem("Ocorreu um erro ao atualizar a senha.");
             }

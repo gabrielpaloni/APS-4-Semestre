@@ -6,10 +6,8 @@ public class Jogo {
     private String nome;
     private String descricao;
     private double preco;
-    private String plataforma; // Ex: "PC", "PlayStation", "Xbox"
-    private int idVendedor; // Chave estrangeira para saber quem publicou
-
-    // Construtores, Getters e Setters
+    private String plataforma;
+    private int idVendedor;
 
     public Jogo() {}
 

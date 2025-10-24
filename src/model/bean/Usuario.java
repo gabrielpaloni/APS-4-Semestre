@@ -8,10 +8,7 @@ public class Usuario {
     private String senha;
     private String tipo;
 
-    // Construtor vazio
     public Usuario() {}
-
-    // Getters e Setters (Completos)
 
     public int getId() {
         return id;
@@ -41,12 +38,10 @@ public class Usuario {
         this.senha = senha;
     }
 
-    // --- 2. ESTES MÉTODOS ESTAVAM FALTANDO ---
     public String getTipo() {
         return tipo;
     }
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    // ----------------------------------------
 }

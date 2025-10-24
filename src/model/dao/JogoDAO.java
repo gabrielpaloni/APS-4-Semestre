@@ -12,18 +12,6 @@ import java.util.List;
 
 public class JogoDAO {
 
-    // SQL para sua tabela (exemplo)
-    // CREATE TABLE jogos (
-    //   id INT AUTO_INCREMENT PRIMARY KEY,
-    //   nome VARCHAR(100) NOT NULL,
-    //   descricao TEXT,
-    //   preco DECIMAL(10, 2) NOT NULL,
-    //   plataforma VARCHAR(50),
-    //   id_vendedor INT,
-    //   FOREIGN KEY (id_vendedor) REFERENCES vendedores(id)
-    // );
-
-    // Método para o vendedor lançar um jogo
     public boolean cadastrar(Jogo jogo) {
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
@@ -46,7 +34,6 @@ public class JogoDAO {
         }
     }
 
-    // Método para o vendedor atualizar um jogo
     public boolean atualizar(Jogo jogo) {
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
@@ -59,7 +46,7 @@ public class JogoDAO {
             stmt.setDouble(3, jogo.getPreco());
             stmt.setString(4, jogo.getPlataforma());
             stmt.setInt(5, jogo.getId());
-            stmt.setInt(6, jogo.getIdVendedor()); // Garante que só o dono pode editar
+            stmt.setInt(6, jogo.getIdVendedor());
 
             int linhasAfetadas = stmt.executeUpdate();
             return linhasAfetadas > 0;
@@ -71,7 +58,6 @@ public class JogoDAO {
         }
     }
 
-    // Método para o vendedor excluir um jogo
     public boolean excluir(int idJogo, int idVendedor) {
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
@@ -80,7 +66,7 @@ public class JogoDAO {
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, idJogo);
-            stmt.setInt(2, idVendedor); // Garante que só o dono pode excluir
+            stmt.setInt(2, idVendedor);
 
             int linhasAfetadas = stmt.executeUpdate();
             return linhasAfetadas > 0;
@@ -92,7 +78,6 @@ public class JogoDAO {
         }
     }
 
-    // Método para a loja (Usuário) listar todos os jogos
     public List<Jogo> listarTodos() {
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
@@ -121,6 +106,4 @@ public class JogoDAO {
         }
         return jogos;
     }
-
-    // ... outros métodos (ex: listarPorVendedor, buscarPorId, etc.) ...
 }

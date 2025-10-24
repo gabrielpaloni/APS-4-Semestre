@@ -9,13 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-// Padrão Singleton para gerenciar a conexão
 public class ConexaoMySQL {
 
     private static final Properties props = new Properties();
     private static Connection conexao;
 
-    // Bloco estático para carregar as propriedades UMA VEZ
     static {
         try (InputStream input = ConexaoMySQL.class.getClassLoader().getResourceAsStream("config.properties")) {
             if (input == null) {
@@ -30,7 +28,6 @@ public class ConexaoMySQL {
     }
 
     private ConexaoMySQL() {
-        // Construtor privado para impedir instanciação
     }
 
     public static Connection getConexao() {
@@ -42,7 +39,6 @@ public class ConexaoMySQL {
                         props.getProperty("db.password")
                 );
             } catch (SQLException e) {
-                // Em um app real, trate isso com uma janela de erro
                 e.printStackTrace();
                 throw new RuntimeException("Erro ao conectar ao banco de dados", e);
             }
@@ -50,12 +46,11 @@ public class ConexaoMySQL {
         return conexao;
     }
 
-    // Métodos utilitários para fechar conexões (Clean Code)
     public static void fecharConexao(Connection con) {
         try {
             if (con != null) {
                 con.close();
-                conexao = null; // Força a reabrir na próxima chamada
+                conexao = null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,7 +60,7 @@ public class ConexaoMySQL {
     public static void fecharConexao(Connection con, PreparedStatement stmt) {
         try {
             if (stmt != null) stmt.close();
-            fecharConexao(con); // Reutiliza o método anterior
+            fecharConexao(con);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,7 +69,7 @@ public class ConexaoMySQL {
     public static void fecharConexao(Connection con, PreparedStatement stmt, ResultSet rs) {
         try {
             if (rs != null) rs.close();
-            fecharConexao(con, stmt); // Reutiliza o método anterior
+            fecharConexao(con, stmt);
         } catch (SQLException e) {
             e.printStackTrace();
         }

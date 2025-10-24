@@ -31,13 +31,8 @@ public class UsuarioDAO {
         }
     }
 
-    /**
-     * Valida o login de um usuário
-     * COMPARANDO A SENHA EM TEXTO PURO (inseguro, como solicitado)
-     */
     public Usuario validarLogin(String email, String plainPassword, String tipo) {
 
-        // A query agora compara a senha pura com a coluna 'senha'
         String sql = "SELECT * FROM usuarios WHERE email = ? AND senha = ? AND tipo = ?";
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
@@ -46,22 +41,21 @@ public class UsuarioDAO {
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, email);
-            stmt.setString(2, plainPassword); // <-- COMPARANDO A SENHA PURA
+            stmt.setString(2, plainPassword);
             stmt.setString(3, tipo);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // Login correto!
                 Usuario usuario = new Usuario();
                 usuario.setId(rs.getInt("id"));
                 usuario.setNome(rs.getString("nome"));
                 usuario.setEmail(rs.getString("email"));
                 usuario.setTipo(rs.getString("tipo"));
 
-                return usuario; // Retorna o usuário logado
+                return usuario;
             }
 
-            return null; // Login inválido
+            return null;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,9 +65,6 @@ public class UsuarioDAO {
         }
     }
 
-    /**
-     * Verifica se um email já existe no banco para um determinado tipo de usuário.
-     */
     public boolean emailExists(String email, String tipo) {
         String sql = "SELECT 1 FROM usuarios WHERE email = ? AND tipo = ?";
         Connection conexao = ConexaoMySQL.getConexao();
@@ -85,7 +76,7 @@ public class UsuarioDAO {
             stmt.setString(1, email);
             stmt.setString(2, tipo);
             rs = stmt.executeQuery();
-            return rs.next(); // Retorna true se encontrou algum resultado
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -94,9 +85,6 @@ public class UsuarioDAO {
         }
     }
 
-    /**
-     * Atualiza a senha (em texto puro) de um usuário baseado no email.
-     */
     public boolean atualizarSenha(String email, String novaSenhaPura) {
         String sql = "UPDATE usuarios SET senha = ? WHERE email = ?";
         Connection conexao = ConexaoMySQL.getConexao();
