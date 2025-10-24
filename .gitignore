@@ -1,0 +1,20 @@
+# Arquivos de configuração da IDE IntelliJ
+.idea/
+*.iml
+*.iws
+
+# Arquivos de compilação do Java
+out/
+build/
+target/
+
+# Ignorar o arquivo de senhas
+!/resources/config.properties.example
+/resources/config.properties
+
+# Arquivos compilados
+*.class
+*.jar
+
+# Logs
+*.log

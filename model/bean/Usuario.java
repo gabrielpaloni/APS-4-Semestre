@@ -1,0 +1,52 @@
+package model.bean; // (ou o nome do seu pacote, ex: br.com.meuprojeto.model.bean)
+
+public class Usuario {
+
+    private int id;
+    private String nome;
+    private String email;
+    private String senha;
+    private String tipo;
+
+    // Construtor vazio
+    public Usuario() {}
+
+    // Getters e Setters (Completos)
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    // --- 2. ESTES MÉTODOS ESTAVAM FALTANDO ---
+    public String getTipo() {
+        return tipo;
+    }
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    // ----------------------------------------
+}

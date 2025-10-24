@@ -1,0 +1,3 @@
+db.url=jdbc:mysql://localhost:3306/pixelhaus?useTimezone=true&serverTimezone=UTC
+db.user=COLOQUE_SEU_USUARIO_AQUI
+db.password=COLOQUE_SUA_SENHA_AQUI
