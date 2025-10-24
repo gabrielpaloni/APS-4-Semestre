@@ -60,7 +60,7 @@ O projeto segue a arquitetura MVC e DAO:
 
 2.  **Configure o Banco de Dados:**
 
-&nbsp;   * Abra seu gerenciador MySQL (Workbench, DBeaver, etc.).
+   * Abra seu gerenciador MySQL (Workbench, DBeaver, etc.).
 
 &nbsp;   * Execute o script `database/pixelhaus\_script.sql` para criar o banco `pixelhaus` e todas as tabelas necessárias.
 
