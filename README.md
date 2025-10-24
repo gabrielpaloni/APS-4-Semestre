@@ -52,29 +52,29 @@ O projeto segue a arquitetura MVC e DAO:
 
 1.  **Clone o repositório:**
 
-&nbsp;   ```bash
+   ```bash
 
-&nbsp;   git clone [https://github.com/gabrielpaloni/APS-4-Semestre.git](https://github.com/gabrielpaloni/APS-4-Semestre.git)
+  git clone [https://github.com/gabrielpaloni/APS-4-Semestre.git](https://github.com/gabrielpaloni/APS-4-Semestre.git)
 
-&nbsp;   ```
+   ```
 
 2.  **Configure o Banco de Dados:**
 
    * Abra seu gerenciador MySQL (Workbench, DBeaver, etc.).
 
-&nbsp;   * Execute o script `database/pixelhaus\_script.sql` para criar o banco `pixelhaus` e todas as tabelas necessárias.
+   * Execute o script `database/pixelhaus\_script.sql` para criar o banco `pixelhaus` e todas as tabelas necessárias.
 
-&nbsp;   * Vá até a pasta `/resources/`.
+   * Vá até a pasta `/resources/`.
 
-&nbsp;   * Renomeie o arquivo `config.properties.example` para `config.properties`.
+   * Renomeie o arquivo `config.properties.example` para `config.properties`.
 
-&nbsp;   * Abra o `config.properties` e preencha com suas credenciais do MySQL.
+   * Abra o `config.properties` e preencha com suas credenciais do MySQL.
 
 3.  **Abra na IDE:**
 
-&nbsp;   * Abra o projeto no IntelliJ IDEA.
+   * Abra o projeto no IntelliJ IDEA.
 
-&nbsp;   * Localize o arquivo `Main.java` e execute-o.
+   * Localize o arquivo `Main.java` e execute-o.
 
 
 
