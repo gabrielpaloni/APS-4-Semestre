@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 
 public class TelaLogin extends JFrame {
 
@@ -44,10 +45,25 @@ public class TelaLogin extends JFrame {
         setContentPane(painelPrincipal);
 
         try {
-            iconOlhoAberto = new ImageIcon(getClass().getResource("/resources/olho_aberto.png"));
-            iconOlhoFechado = new ImageIcon(getClass().getResource("/resources/olho_fechado.png"));
+            // O ClassLoader procura a partir da raiz do classpath (a pasta 'out/')
+            // O caminho correto é apenas o nome do arquivo, pois ele está na raiz.
+            URL locationOlhoAberto = getClass().getClassLoader().getResource("olho_aberto.png");
+            URL locationOlhoFechado = getClass().getClassLoader().getResource("olho_fechado.png");
+
+            // Esta verificação é ESSENCIAL para evitar o erro "location is null"
+            if (locationOlhoAberto == null || locationOlhoFechado == null) {
+                // Se cair aqui, os arquivos não foram encontrados.
+                // Verifique se os nomes estão corretos e se 'resources' está marcada.
+                throw new RuntimeException("Não foi possível encontrar os ícones de olho. Verifique a pasta 'resources'.");
+            }
+
+            // Se passou da verificação, os locais (locations) são válidos
+            iconOlhoAberto = new ImageIcon(locationOlhoAberto);
+            iconOlhoFechado = new ImageIcon(locationOlhoFechado);
+
         } catch (Exception e) {
             System.err.println("Erro ao carregar os ícones de olho: " + e.getMessage());
+            e.printStackTrace(); // Bom para ver o erro completo
             iconOlhoAberto = null;
             iconOlhoFechado = null;
         }
