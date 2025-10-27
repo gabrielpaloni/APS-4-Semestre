@@ -6,6 +6,8 @@ public class Vendedor {
     private String nomeLoja;
     private String email;
     private String senha;
+    private String tipo;
+    private String dataCadastro;
 
     public Vendedor() {}
 
@@ -45,5 +47,21 @@ public class Vendedor {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(String dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 }

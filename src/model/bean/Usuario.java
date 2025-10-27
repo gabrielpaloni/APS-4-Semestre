@@ -1,4 +1,4 @@
-package model.bean; // (ou o nome do seu pacote, ex: br.com.meuprojeto.model.bean)
+package model.bean;
 
 public class Usuario {
 
