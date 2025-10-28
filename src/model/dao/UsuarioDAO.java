@@ -92,7 +92,7 @@ public class UsuarioDAO {
 
         try {
             stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, novaSenhaPura); // <-- SALVANDO SENHA PURA
+            stmt.setString(1, novaSenhaPura);
             stmt.setString(2, email);
 
             int linhasAfetadas = stmt.executeUpdate();

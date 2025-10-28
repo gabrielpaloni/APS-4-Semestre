@@ -34,7 +34,7 @@ public class VendedorDAO {
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM usuarios WHERE email = ? AND senha = ?";
+        String sql = "SELECT * FROM usuarios WHERE email = ? AND senha = ? AND tipo = 'vendedor'";
 
         try {
             stmt = conexao.prepareStatement(sql);

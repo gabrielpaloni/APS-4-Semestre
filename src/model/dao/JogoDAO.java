@@ -58,4 +58,55 @@ public class JogoDAO {
         }
         return jogos;
     }
+
+    public List<Jogo> listarTodosJogos() {
+        List<Jogo> jogos = new ArrayList<>();
+        String sql = "SELECT id, titulo, descricao, preco, nome_imagem, total_downloads FROM jogos";
+
+        Connection conexao = ConexaoMySQL.getConexao();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Jogo jogo = new Jogo();
+                jogo.setId(rs.getInt("id"));
+                jogo.setNome(rs.getString("titulo"));
+                jogo.setDescricao(rs.getString("descricao"));
+                jogo.setPreco(rs.getDouble("preco"));
+
+                String imagem = rs.getString("nome_imagem");
+                jogo.setNomeArquivoImagem(imagem);
+
+                jogo.setTotalDownloads(rs.getInt("total_downloads"));
+
+                jogos.add(jogo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConexaoMySQL.fecharConexao(conexao, stmt, rs);
+        }
+        return jogos;
+    }
+
+    public void registrarDownload(int idJogo) {
+        String sql = "UPDATE jogos SET total_downloads = total_downloads + 1 WHERE id = ?";
+
+        Connection conexao = ConexaoMySQL.getConexao();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idJogo);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConexaoMySQL.fecharConexao(conexao, stmt);
+        }
+    }
 }

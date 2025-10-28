@@ -9,7 +9,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.net.URL;
 import java.awt.Image;
 
 public class TelaPrincipalVendedor extends JFrame {
@@ -88,7 +87,7 @@ public class TelaPrincipalVendedor extends JFrame {
             JPanel cardDoJogo = createGameItemPanel(
                     jogo.getNome(),
                     String.valueOf(jogo.getTotalDownloads()),
-                    String.format("$%.2f USD", jogo.getPreco()),
+                    String.format("R$%.2f ", jogo.getPreco()),
                     jogo.getNomeArquivoImagem(),
                     jogo.getDescricao()
             );
@@ -107,21 +106,13 @@ public class TelaPrincipalVendedor extends JFrame {
 
         JLabel imageLabel;
         if (nomeImagem != null && !nomeImagem.isEmpty()) {
-
-            // --- MODIFICAÇÃO COMEÇA AQUI ---
-
-            // 1. Crie um caminho de arquivo relativo à raiz do projeto
             String imagePath = "resources/" + nomeImagem;
-
-            // 2. Verifique se o arquivo existe nesse caminho
             java.io.File imageFile = new java.io.File(imagePath);
 
             if (imageFile.exists()) {
-                // 3. Carregue a imagem diretamente pelo seu caminho (path)
                 ImageIcon originalIcon = new ImageIcon(imagePath);
                 Image originalImage = originalIcon.getImage();
 
-                // Seu código de redimensionamento (está correto)
                 int targetWidth = 180;
                 int targetHeight = 120;
                 int imageWidth = originalImage.getWidth(null);
@@ -137,11 +128,9 @@ public class TelaPrincipalVendedor extends JFrame {
                 Image resizedImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
                 imageLabel = new JLabel(new ImageIcon(resizedImage));
             } else {
-                // Mensagem de erro mais útil
                 imageLabel = new JLabel("<html>Imagem não encontrada:<br>" + imagePath + "</html>");
                 imageLabel.setForeground(Color.RED);
             }
-            // --- MODIFICAÇÃO TERMINA AQUI ---
 
         } else {
             imageLabel = new JLabel("IMAGEM DO JOGO");
