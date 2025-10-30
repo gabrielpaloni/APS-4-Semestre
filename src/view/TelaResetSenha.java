@@ -2,21 +2,25 @@ package view;
 
 import controller.ResetSenhaController;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 
 public class TelaResetSenha extends JFrame {
 
-    private static final Color COR_FUNDO_ESCURO = new Color(18, 18, 18);
-    private static final Color COR_CAMPO_TEXTO = new Color(31, 31, 31);
-    private static final Color COR_AZUL_DESTAQUE = new Color(0, 122, 255);
-    private static final Color COR_TEXTO_BRANCO = new Color(240, 240, 240);
-    private static final Color COR_TEXTO_CINZA = new Color(160, 160, 160);
-    private static final Color COR_BORDA_PADRAO = new Color(80, 80, 80);
+    // --- CORES E FONTES UNIFICADAS ---
+    private static final Color COR_FUNDO = new Color(18, 23, 35); // Cor de fundo do painel de conteúdo
+    private static final Color COR_TEXTO = new Color(220, 220, 220);
+    private static final Color COR_DESTAQUE = new Color(0, 255, 255);
+    private static final Color COR_TEXTO_LABEL = new Color(180, 180, 180);
+
     private static final Font FONTE_PADRAO = new Font("Segoe UI", Font.PLAIN, 14);
     private static final Font FONTE_TITULO = new Font("Segoe UI", Font.BOLD, 28);
+    private static final Font FONTE_LABEL = new Font("Segoe UI", Font.BOLD, 12);
 
     private JTextField txtEmail;
     private JButton btnRedefinir;
@@ -24,73 +28,111 @@ public class TelaResetSenha extends JFrame {
     private String tipoUsuario;
 
     private ResetSenhaController controller;
+    private Image imgBackground; // <-- MUDANÇA: Reintroduzir variável para a imagem de fundo
 
     public TelaResetSenha(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
         this.controller = new ResetSenhaController(this);
 
-        setBackground(COR_FUNDO_ESCURO);
         setTitle("PixelHaus - Redefinir Senha");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        JPanel painelPrincipal = new JPanel();
-        painelPrincipal.setBackground(COR_FUNDO_ESCURO);
-        painelPrincipal.setBorder(new EmptyBorder(40, 40, 40, 40));
+        carregarImagens(); // <-- MUDANÇA: Chamar método para carregar imagens
+
+        // --- MUDANÇA: ESTRUTURA PRINCIPAL COM BACKGROUND IMAGE ---
+        // Substituído JPanel por BackgroundPanel
+        BackgroundPanel painelPrincipal = new BackgroundPanel(imgBackground);
+        painelPrincipal.setLayout(new GridBagLayout()); // Layout centralizado
         setContentPane(painelPrincipal);
 
+        // Painel de conteúdo interno (com um fundo sólido e bordas)
+        JPanel painelConteudo = new JPanel(new GridBagLayout());
+        painelConteudo.setOpaque(true); // <-- MUDANÇA: Definir como opaco para ter um fundo próprio
+        painelConteudo.setBackground(COR_FUNDO); // <-- MUDANÇA: Define a cor de fundo do painel de conteúdo
+        painelConteudo.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(COR_DESTAQUE, 1), // Borda externa de destaque
+                new EmptyBorder(20, 40, 20, 40)  // Padding interno
+        ));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 0, 5, 0);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // --- Título ---
         JLabel lblTitulo = new JLabel("Redefinir Senha");
         lblTitulo.setFont(FONTE_TITULO);
-        lblTitulo.setForeground(COR_TEXTO_BRANCO);
+        lblTitulo.setForeground(COR_TEXTO);
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(8, 0, 20, 0);
+        painelConteudo.add(lblTitulo, gbc);
 
+        // --- Label Info ---
         JLabel lblInfo = criarLabel("Digite o email da sua conta (" + tipoUsuario + ")");
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(15, 0, 2, 0);
+        painelConteudo.add(lblInfo, gbc);
+
+        // --- Campo Email ---
         txtEmail = criarCampoDeTexto();
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(0, 0, 8, 0);
+        painelConteudo.add(txtEmail, gbc);
 
+        // --- Botão Redefinir ---
         btnRedefinir = new BotaoGradiente("Verificar Email");
+        btnRedefinir.setPreferredSize(new Dimension(300, 45));
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(15, 0, 15, 0);
+        painelConteudo.add(btnRedefinir, gbc);
 
-        lblVoltarAoLogin = new JLabel("Voltar ao Login");
-        lblVoltarAoLogin.setFont(FONTE_PADRAO);
-        lblVoltarAoLogin.setForeground(COR_TEXTO_CINZA);
-        lblVoltarAoLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        // --- Link Voltar ao Login ---
+        lblVoltarAoLogin = criarLink("Voltar ao Login");
+        JPanel painelLink = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        painelLink.setOpaque(false);
+        painelLink.add(lblVoltarAoLogin);
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(8, 0, 8, 0);
+        painelConteudo.add(painelLink, gbc);
 
-        // Layout
-        GroupLayout layout = new GroupLayout(painelPrincipal);
-        painelPrincipal.setLayout(layout);
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
-
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                        .addComponent(lblTitulo, GroupLayout.Alignment.LEADING)
-                        .addComponent(lblInfo, GroupLayout.Alignment.LEADING)
-                        .addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnRedefinir, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblVoltarAoLogin)
-        );
-
-        layout.setVerticalGroup(
-                layout.createSequentialGroup()
-                        .addComponent(lblTitulo)
-                        .addGap(30)
-                        .addComponent(lblInfo)
-                        .addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                        .addGap(30)
-                        .addComponent(btnRedefinir, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                        .addGap(20)
-                        .addComponent(lblVoltarAoLogin)
-        );
+        // Adiciona o painel de conteúdo ao painel principal (centralizado)
+        painelPrincipal.add(painelConteudo, new GridBagConstraints());
 
         configurarListeners();
 
-        pack();
+        setSize(500, 600); // Mesmo tamanho da TelaLogin
         setLocationRelativeTo(null);
     }
+
+    // <-- MUDANÇA: Método carregarImagens reintroduzido -->
+    private void carregarImagens() {
+        try {
+            URL bgUrl = getClass().getClassLoader().getResource("login_bg.png");
+            if (bgUrl == null) {
+                throw new RuntimeException("Imagem 'login_bg.png' não encontrada. Verifique a pasta 'resources'.");
+            }
+            this.imgBackground = new ImageIcon(bgUrl).getImage();
+        } catch (Exception e) {
+            System.err.println("Erro ao carregar imagem de fundo: " + e.getMessage());
+            e.printStackTrace();
+            this.imgBackground = null; // Garante que não usará uma imagem inválida
+        }
+    }
+    // <-- FIM da Mudança -->
+
 
     private void configurarListeners() {
         btnRedefinir.addActionListener(e -> controller.acaoBotaoRedefinir());
 
-        aplicarEfeitoHoverLink(lblVoltarAoLogin);
         lblVoltarAoLogin.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -99,43 +141,57 @@ public class TelaResetSenha extends JFrame {
         });
     }
 
+    // --- Getters (sem mudança) ---
     public String getEmail() { return txtEmail.getText(); }
     public String getTipoUsuario() { return tipoUsuario; }
     public void exibirMensagem(String mensagem) { JOptionPane.showMessageDialog(this, mensagem); }
 
+
+    // --- MÉTODOS DE ESTILO (Os mesmos de antes) ---
+
+    private Border criarBordaNeonComPadding() {
+        Border linhaBorda = BorderFactory.createLineBorder(COR_DESTAQUE, 1, true);
+        Border padding = new EmptyBorder(8, 10, 8, 10);
+        return BorderFactory.createCompoundBorder(linhaBorda, padding);
+    }
+
     private JLabel criarLabel(String texto) {
         JLabel label = new JLabel(texto);
-        label.setFont(FONTE_PADRAO);
-        label.setForeground(COR_TEXTO_CINZA);
+        label.setFont(FONTE_LABEL);
+        label.setForeground(COR_TEXTO_LABEL);
         return label;
     }
 
     private JTextField criarCampoDeTexto() {
-        JTextField campo = new JTextField();
+        JTextField campo = new JTextField(25); // Tamanho
         campo.setFont(FONTE_PADRAO);
-        campo.setBackground(COR_CAMPO_TEXTO);
-        campo.setForeground(COR_TEXTO_BRANCO);
-        campo.setCaretColor(COR_TEXTO_BRANCO);
-        campo.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(COR_BORDA_PADRAO),
-                BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
+        campo.setBackground(COR_FUNDO); // Usará a COR_FUNDO (escura)
+        campo.setForeground(COR_TEXTO);
+        campo.setCaretColor(COR_DESTAQUE);
+        campo.setBorder(criarBordaNeonComPadding());
+        campo.setOpaque(true);
         return campo;
     }
 
-    private void aplicarEfeitoHoverLink(JLabel label) {
+    private JLabel criarLink(String texto) {
+        JLabel label = new JLabel(texto);
+        label.setFont(FONTE_PADRAO);
+        label.setForeground(COR_DESTAQUE);
+        label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                label.setForeground(COR_AZUL_DESTAQUE);
+                label.setForeground(COR_TEXTO.brighter());
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                label.setForeground(COR_TEXTO_CINZA);
+                label.setForeground(COR_DESTAQUE);
             }
         });
+        return label;
     }
 
+    // --- Inner class BotaoGradiente (A mesma de antes) ---
     class BotaoGradiente extends JButton {
         private boolean isHovered = false;
         public BotaoGradiente(String text) {
@@ -170,4 +226,20 @@ public class TelaResetSenha extends JFrame {
             super.paintComponent(g);
         }
     }
+
+    // <-- MUDANÇA: BackgroundPanel reintroduzido -->
+    class BackgroundPanel extends JPanel {
+        private Image backgroundImage;
+        public BackgroundPanel(Image backgroundImage) {
+            this.backgroundImage = backgroundImage;
+        }
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        }
+    }
+    // <-- FIM da Mudança -->
 }
