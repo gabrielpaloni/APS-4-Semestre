@@ -36,29 +36,20 @@ public class ResetSenhaController {
         }
 
         if (emailValido) {
-            mostrarDialogoNovaSenha(email, tipo); // Passa o tipo
+            mostrarDialogoNovaSenha(email, tipo);
         } else {
             view.exibirMensagem("Email não encontrado para este tipo de conta.");
         }
     }
 
-    // --- MUDANÇA PRINCIPAL AQUI ---
-    // Este método foi completamente reescrito
     private void mostrarDialogoNovaSenha(String email, String tipo) {
 
-        // 1. Cria e exibe o seu diálogo customizado
-        DialogNovaSenha dialog = new DialogNovaSenha(view); // 'view' é o JFrame pai
+        DialogNovaSenha dialog = new DialogNovaSenha(view);
         dialog.setVisible(true);
 
-        // 2. O código para aqui até o diálogo fechar (porque é modal)
-
-        // 3. Pega a senha que o usuário digitou
         String novaSenha = dialog.getNovaSenha();
 
-        // 4. Verifica se o usuário confirmou (novaSenha não será nula)
         if (novaSenha != null) {
-            // A lógica de verificação (senhas vazias/diferentes)
-            // já foi tratada dentro do DialogNovaSenha.
 
             boolean sucesso = false;
             if ("user".equals(tipo)) {
@@ -69,12 +60,10 @@ public class ResetSenhaController {
 
             if (sucesso) {
                 view.exibirMensagem("Senha redefinida com sucesso!");
-                view.dispose(); // Fecha a TelaResetSenha
+                view.dispose();
             } else {
                 view.exibirMensagem("Ocorreu um erro ao atualizar a senha.");
             }
         }
-        // Se novaSenha for nula, significa que o usuário clicou em "Cancelar",
-        // então não fazemos nada.
     }
 }

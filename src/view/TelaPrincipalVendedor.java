@@ -18,7 +18,7 @@ public class TelaPrincipalVendedor extends JFrame {
     private Vendedor vendedorLogado;
     private JPanel gamesGridPanel;
     private Image backgroundImage;
-    private JLabel welcomeLabel; // Movido para ser uma variável de classe
+    private JLabel welcomeLabel;
 
     private static final Color COR_FUNDO = new Color(18, 23, 35);
     private static final Color COR_PAINEL_FUNDO = new Color(27, 34, 52);
@@ -293,7 +293,6 @@ public class TelaPrincipalVendedor extends JFrame {
         JPanel footerPanel = new JPanel(new BorderLayout());
         footerPanel.setBackground(COR_FUNDO);
 
-        // Inicializa o welcomeLabel como variável de classe
         welcomeLabel = new JLabel("Bem-vindo(a), " + vendedorLogado.getNomeLoja() + "!");
         welcomeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         welcomeLabel.setForeground(COR_TEXTO);

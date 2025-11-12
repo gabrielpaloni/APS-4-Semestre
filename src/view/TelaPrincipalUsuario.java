@@ -310,12 +310,10 @@ public class TelaPrincipalUsuario extends JFrame {
     }
 
     private ImageIcon carregarIcone(String caminho, int largura, int altura) {
-        // Remove a barra "/" inicial, se existir
         if (caminho.startsWith("/")) {
             caminho = caminho.substring(1);
         }
 
-        // Constrói o caminho absoluto
         String projectRoot = System.getProperty("user.dir");
         String absolutePath = projectRoot + java.io.File.separator + caminho;
 
@@ -344,7 +342,6 @@ public class TelaPrincipalUsuario extends JFrame {
 
         Image img = null;
         try {
-            // Constrói o caminho absoluto para a imagem do jogo
             String projectRoot = System.getProperty("user.dir");
             String absolutePath = projectRoot + java.io.File.separator + "resources" + java.io.File.separator + jogo.getNomeArquivoImagem();
 
@@ -380,11 +377,6 @@ public class TelaPrincipalUsuario extends JFrame {
         nameLabel.setForeground(COR_TEXTO_CLARO);
         nameLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // --- REMOVI A DESCRIÇÃO DO CARD DOS JOGOS NA LOJA E ADICIONEI NA PARTE DA COMPRA ---
-        // String descHtml = "<html><p style='width:180px;text-align:center;color:gray;font-size: 10px;'>" + jogo.getDescricao() + "</p></html>";
-        // JLabel descLabel = new JLabel(descHtml);
-        // descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel priceLabel = new JLabel("Preço: R$" + String.format("%,.2f", jogo.getPreco()));
         priceLabel.setForeground(COR_PRECO);
@@ -424,7 +416,6 @@ public class TelaPrincipalUsuario extends JFrame {
 
         Image img = null;
         try {
-            // Constrói o caminho absoluto para a imagem do jogo
             String projectRoot = System.getProperty("user.dir");
             String absolutePath = projectRoot + java.io.File.separator + "resources" + java.io.File.separator + jogo.getNomeArquivoImagem();
 

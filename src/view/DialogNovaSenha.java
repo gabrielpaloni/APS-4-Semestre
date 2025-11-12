@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 
 public class DialogNovaSenha extends JDialog {
 
-    // As mesmas constantes de estilo da TelaResetSenha
     private static final Color COR_FUNDO = new Color(18, 23, 35);
     private static final Color COR_PAINEL_FUNDO = new Color(27, 34, 52);
     private static final Color COR_TEXTO = new Color(220, 220, 220);
@@ -24,10 +23,9 @@ public class DialogNovaSenha extends JDialog {
     private JLabel lblErro;
     private JButton btnConfirmar, btnCancelar;
 
-    private String novaSenha = null; // Armazena a senha se o usuário confirmar
+    private String novaSenha = null;
 
     public DialogNovaSenha(JFrame parent) {
-        // 'true' o torna "modal" (bloqueia a janela pai, como um JOptionPane)
         super(parent, "Digite a Nova Senha", true);
 
         configurarJanela();
@@ -36,7 +34,6 @@ public class DialogNovaSenha extends JDialog {
         configurarListeners();
     }
 
-    // Método público para o controller pegar a senha
     public String getNovaSenha() {
         return novaSenha;
     }
@@ -44,14 +41,13 @@ public class DialogNovaSenha extends JDialog {
     private void configurarJanela() {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setResizable(false);
-        setUndecorated(true); // Tira a barra de título padrão
+        setUndecorated(true);
 
-        // Cria um painel principal com a cor de fundo e uma borda de destaque
         JPanel painelPrincipal = new JPanel();
         painelPrincipal.setBackground(COR_PAINEL_FUNDO);
         painelPrincipal.setBorder(BorderFactory.createCompoundBorder(
-                new LineBorder(COR_DESTAQUE, 1), // Borda externa de destaque
-                new EmptyBorder(20, 20, 20, 20)  // Padding interno
+                new LineBorder(COR_DESTAQUE, 1),
+                new EmptyBorder(20, 20, 20, 20)
         ));
         setContentPane(painelPrincipal);
     }
@@ -60,11 +56,9 @@ public class DialogNovaSenha extends JDialog {
         txtNovaSenha = criarCampoDeSenha();
         txtConfirmaSenha = criarCampoDeSenha();
 
-        // Copia o BotaoGradiente da TelaLogin/TelaResetSenha
         btnConfirmar = new BotaoGradiente("Confirmar");
         btnConfirmar.setPreferredSize(new Dimension(120, 40));
 
-        // Botão de cancelar (estilo mais simples)
         btnCancelar = new JButton("Cancelar");
         btnCancelar.setFont(FONTE_PADRAO);
         btnCancelar.setForeground(COR_TEXTO_CINZA);
@@ -74,29 +68,26 @@ public class DialogNovaSenha extends JDialog {
         btnCancelar.setPreferredSize(new Dimension(100, 40));
 
         btnCancelar.setFocusPainted(false);
-        btnCancelar.setContentAreaFilled(false); // Para não desenhar o fundo padrão
-        btnCancelar.setOpaque(true); // Precisamos que seja opaco para pintar nosso fundo
+        btnCancelar.setContentAreaFilled(false);
+        btnCancelar.setOpaque(true);
 
-        // Adiciona o efeito Hover
         btnCancelar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                // Ao entrar: Fundo Vermelho, Texto Branco
-                btnCancelar.setBackground(new Color(210, 50, 50)); // Um vermelho escuro
+                btnCancelar.setBackground(new Color(210, 50, 50));
                 btnCancelar.setForeground(Color.WHITE);
-                btnCancelar.setBorder(new LineBorder(new Color(255, 100, 100))); // Borda vermelha clara
+                btnCancelar.setBorder(new LineBorder(new Color(255, 100, 100)));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                // Ao sair: Volta ao normal
                 btnCancelar.setBackground(COR_PAINEL_FUNDO);
                 btnCancelar.setForeground(COR_TEXTO_CINZA);
                 btnCancelar.setBorder(new LineBorder(COR_BORDA_PADRAO, 1));
             }
         });
 
-        lblErro = new JLabel(" "); // Label de erro (começa vazia)
+        lblErro = new JLabel(" ");
         lblErro.setFont(FONTE_LABEL);
         lblErro.setForeground(Color.RED);
     }
@@ -108,7 +99,6 @@ public class DialogNovaSenha extends JDialog {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Título
         JLabel lblTitulo = new JLabel("Digite a Nova Senha");
         lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
         lblTitulo.setForeground(COR_TEXTO);
@@ -118,11 +108,9 @@ public class DialogNovaSenha extends JDialog {
         gbc.insets = new Insets(5, 5, 15, 5); // Mais margem abaixo
         painel.add(lblTitulo, gbc);
 
-        // Reset gbc
         gbc.gridwidth = 1;
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Labels
         gbc.anchor = GridBagConstraints.LINE_END;
         gbc.weightx = 0.3;
         gbc.gridx = 0;
@@ -132,7 +120,6 @@ public class DialogNovaSenha extends JDialog {
         gbc.gridy = 2;
         painel.add(criarLabel("Confirmar Senha:"), gbc);
 
-        // Campos de Texto
         gbc.anchor = GridBagConstraints.LINE_START;
         gbc.weightx = 0.7;
         gbc.gridx = 1;
@@ -142,13 +129,11 @@ public class DialogNovaSenha extends JDialog {
         gbc.gridy = 2;
         painel.add(txtConfirmaSenha, gbc);
 
-        // Label de Erro
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.LINE_START;
         painel.add(lblErro, gbc);
 
-        // Painel de Botões
         JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         painelBotoes.setOpaque(false);
         painelBotoes.add(btnCancelar);
@@ -159,15 +144,14 @@ public class DialogNovaSenha extends JDialog {
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.LINE_END;
         gbc.fill = GridBagConstraints.NONE;
-        gbc.insets = new Insets(15, 5, 5, 5); // Mais margem acima
+        gbc.insets = new Insets(15, 5, 5, 5);
         painel.add(painelBotoes, gbc);
 
         pack();
-        setLocationRelativeTo(getParent()); // Centraliza na janela pai
+        setLocationRelativeTo(getParent());
     }
 
     private void configurarListeners() {
-        // Ação do Botão Confirmar
         btnConfirmar.addActionListener(e -> {
             String senha1 = new String(txtNovaSenha.getPassword());
             String senha2 = new String(txtConfirmaSenha.getPassword());
@@ -181,29 +165,25 @@ public class DialogNovaSenha extends JDialog {
                 return;
             }
 
-            // Sucesso! Armazena a senha e fecha o diálogo
             this.novaSenha = senha1;
             dispose();
         });
 
-        // Ação do Botão Cancelar
         btnCancelar.addActionListener(e -> {
-            this.novaSenha = null; // Garante que a senha é nula
+            this.novaSenha = null;
             dispose();
         });
     }
 
-    // --- Métodos de Estilo (copiados da TelaResetSenha) ---
-
     private JPasswordField criarCampoDeSenha() {
-        JPasswordField campo = new JPasswordField(20); // Tamanho
+        JPasswordField campo = new JPasswordField(20);
         campo.setFont(FONTE_PADRAO);
-        campo.setBackground(COR_FUNDO); // Cor de fundo mais escura
+        campo.setBackground(COR_FUNDO);
         campo.setForeground(COR_TEXTO);
         campo.setCaretColor(COR_DESTAQUE);
         campo.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(COR_BORDA_PADRAO),
-                BorderFactory.createEmptyBorder(8, 10, 8, 10) // Padding
+                BorderFactory.createEmptyBorder(8, 10, 8, 10)
         ));
         campo.setEchoChar('•');
         return campo;
@@ -216,7 +196,6 @@ public class DialogNovaSenha extends JDialog {
         return label;
     }
 
-    // Copie a classe BotaoGradiente para cá
     class BotaoGradiente extends JButton {
         private boolean isHovered = false;
         public BotaoGradiente(String text) {

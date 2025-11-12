@@ -10,13 +10,9 @@ import java.sql.SQLException;
 
 public class VendedorDAO {
 
-    /**
-     * CORRIGIDO: Agora também insere o 'tipo' do usuário.
-     */
     public boolean cadastrar(Vendedor vendedor) {
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
-        // MUDANÇA: Adicionada a coluna 'tipo'
         String sql = "INSERT INTO usuarios (nome, email, senha, tipo) VALUES (?, ?, ?, ?)";
 
         try {
@@ -24,7 +20,7 @@ public class VendedorDAO {
             stmt.setString(1, vendedor.getNomeLoja());
             stmt.setString(2, vendedor.getEmail());
             stmt.setString(3, vendedor.getSenha());
-            stmt.setString(4, "vendedor"); // MUDANÇA: Define o tipo como 'vendedor'
+            stmt.setString(4, "vendedor");
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -35,9 +31,6 @@ public class VendedorDAO {
         }
     }
 
-    /**
-     * Este método estava correto. Nenhuma mudança.
-     */
     public Vendedor validarLogin(String email, String senha) {
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
@@ -65,9 +58,6 @@ public class VendedorDAO {
         return null;
     }
 
-    /**
-     * Este método estava correto. Nenhuma mudança.
-     */
     public Vendedor buscarVendedorPorId(int id) {
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
@@ -98,22 +88,17 @@ public class VendedorDAO {
         return null;
     }
 
-    // --- NOVO MÉTODO (Necessário para o ResetSenhaController) ---
-    /**
-     * Verifica se um email já existe para um usuário do tipo 'vendedor'.
-     */
     public boolean emailExists(String email) {
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        // Usamos SELECT 1 para ser mais rápido (só queremos saber se existe)
         String sql = "SELECT 1 FROM usuarios WHERE email = ? AND tipo = 'vendedor'";
 
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, email);
             rs = stmt.executeQuery();
-            return rs.next(); // Retorna true se encontrou um registro, false se não
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -122,15 +107,9 @@ public class VendedorDAO {
         }
     }
 
-    // --- NOVO MÉTODO (Necessário para o ResetSenhaController) ---
-    /**
-     * Atualiza a senha de um usuário baseado no email,
-     * APENAS se ele for do tipo 'vendedor'.
-     */
     public boolean atualizarSenha(String email, String novaSenha) {
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
-        // Garante que só estamos atualizando a senha de um vendedor
         String sql = "UPDATE usuarios SET senha = ? WHERE email = ? AND tipo = 'vendedor'";
 
         try {
@@ -138,7 +117,7 @@ public class VendedorDAO {
             stmt.setString(1, novaSenha);
             stmt.setString(2, email);
             int linhasAfetadas = stmt.executeUpdate();
-            return linhasAfetadas > 0; // Retorna true se 1 linha foi atualizada
+            return linhasAfetadas > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

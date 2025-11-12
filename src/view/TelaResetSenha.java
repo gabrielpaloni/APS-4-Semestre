@@ -12,8 +12,7 @@ import java.net.URL;
 
 public class TelaResetSenha extends JFrame {
 
-    // --- CORES E FONTES UNIFICADAS ---
-    private static final Color COR_FUNDO = new Color(18, 23, 35); // Cor de fundo do painel de conteúdo
+    private static final Color COR_FUNDO = new Color(18, 23, 35);
     private static final Color COR_TEXTO = new Color(220, 220, 220);
     private static final Color COR_DESTAQUE = new Color(0, 255, 255);
     private static final Color COR_TEXTO_LABEL = new Color(180, 180, 180);
@@ -28,7 +27,7 @@ public class TelaResetSenha extends JFrame {
     private String tipoUsuario;
 
     private ResetSenhaController controller;
-    private Image imgBackground; // <-- MUDANÇA: Reintroduzir variável para a imagem de fundo
+    private Image imgBackground;
 
     public TelaResetSenha(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
@@ -38,28 +37,24 @@ public class TelaResetSenha extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        carregarImagens(); // <-- MUDANÇA: Chamar método para carregar imagens
+        carregarImagens();
 
-        // --- MUDANÇA: ESTRUTURA PRINCIPAL COM BACKGROUND IMAGE ---
-        // Substituído JPanel por BackgroundPanel
         BackgroundPanel painelPrincipal = new BackgroundPanel(imgBackground);
-        painelPrincipal.setLayout(new GridBagLayout()); // Layout centralizado
+        painelPrincipal.setLayout(new GridBagLayout());
         setContentPane(painelPrincipal);
 
-        // Painel de conteúdo interno (com um fundo sólido e bordas)
         JPanel painelConteudo = new JPanel(new GridBagLayout());
-        painelConteudo.setOpaque(true); // <-- MUDANÇA: Definir como opaco para ter um fundo próprio
-        painelConteudo.setBackground(COR_FUNDO); // <-- MUDANÇA: Define a cor de fundo do painel de conteúdo
+        painelConteudo.setOpaque(true);
+        painelConteudo.setBackground(COR_FUNDO);
         painelConteudo.setBorder(BorderFactory.createCompoundBorder(
-                new LineBorder(COR_DESTAQUE, 1), // Borda externa de destaque
-                new EmptyBorder(20, 40, 20, 40)  // Padding interno
+                new LineBorder(COR_DESTAQUE, 1),
+                new EmptyBorder(20, 40, 20, 40)
         ));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 0, 5, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // --- Título ---
         JLabel lblTitulo = new JLabel("Redefinir Senha");
         lblTitulo.setFont(FONTE_TITULO);
         lblTitulo.setForeground(COR_TEXTO);
@@ -70,7 +65,6 @@ public class TelaResetSenha extends JFrame {
         gbc.insets = new Insets(8, 0, 20, 0);
         painelConteudo.add(lblTitulo, gbc);
 
-        // --- Label Info ---
         JLabel lblInfo = criarLabel("Digite o email da sua conta (" + tipoUsuario + ")");
         gbc.gridy = 1;
         gbc.gridwidth = 2;
@@ -78,7 +72,6 @@ public class TelaResetSenha extends JFrame {
         gbc.insets = new Insets(15, 0, 2, 0);
         painelConteudo.add(lblInfo, gbc);
 
-        // --- Campo Email ---
         txtEmail = criarCampoDeTexto();
         gbc.gridy = 2;
         gbc.gridwidth = 2;
@@ -86,7 +79,6 @@ public class TelaResetSenha extends JFrame {
         gbc.insets = new Insets(0, 0, 8, 0);
         painelConteudo.add(txtEmail, gbc);
 
-        // --- Botão Redefinir ---
         btnRedefinir = new BotaoGradiente("Verificar Email");
         btnRedefinir.setPreferredSize(new Dimension(300, 45));
         gbc.gridy = 3;
@@ -94,7 +86,6 @@ public class TelaResetSenha extends JFrame {
         gbc.insets = new Insets(15, 0, 15, 0);
         painelConteudo.add(btnRedefinir, gbc);
 
-        // --- Link Voltar ao Login ---
         lblVoltarAoLogin = criarLink("Voltar ao Login");
         JPanel painelLink = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         painelLink.setOpaque(false);
@@ -104,16 +95,14 @@ public class TelaResetSenha extends JFrame {
         gbc.insets = new Insets(8, 0, 8, 0);
         painelConteudo.add(painelLink, gbc);
 
-        // Adiciona o painel de conteúdo ao painel principal (centralizado)
         painelPrincipal.add(painelConteudo, new GridBagConstraints());
 
         configurarListeners();
 
-        setSize(500, 600); // Mesmo tamanho da TelaLogin
+        setSize(500, 600);
         setLocationRelativeTo(null);
     }
 
-    // <-- MUDANÇA: Método carregarImagens reintroduzido -->
     private void carregarImagens() {
         try {
             URL bgUrl = getClass().getClassLoader().getResource("login_bg.png");
@@ -124,11 +113,9 @@ public class TelaResetSenha extends JFrame {
         } catch (Exception e) {
             System.err.println("Erro ao carregar imagem de fundo: " + e.getMessage());
             e.printStackTrace();
-            this.imgBackground = null; // Garante que não usará uma imagem inválida
+            this.imgBackground = null;
         }
     }
-    // <-- FIM da Mudança -->
-
 
     private void configurarListeners() {
         btnRedefinir.addActionListener(e -> controller.acaoBotaoRedefinir());
@@ -141,13 +128,9 @@ public class TelaResetSenha extends JFrame {
         });
     }
 
-    // --- Getters (sem mudança) ---
     public String getEmail() { return txtEmail.getText(); }
     public String getTipoUsuario() { return tipoUsuario; }
     public void exibirMensagem(String mensagem) { JOptionPane.showMessageDialog(this, mensagem); }
-
-
-    // --- MÉTODOS DE ESTILO (Os mesmos de antes) ---
 
     private Border criarBordaNeonComPadding() {
         Border linhaBorda = BorderFactory.createLineBorder(COR_DESTAQUE, 1, true);
@@ -163,9 +146,9 @@ public class TelaResetSenha extends JFrame {
     }
 
     private JTextField criarCampoDeTexto() {
-        JTextField campo = new JTextField(25); // Tamanho
+        JTextField campo = new JTextField(25);
         campo.setFont(FONTE_PADRAO);
-        campo.setBackground(COR_FUNDO); // Usará a COR_FUNDO (escura)
+        campo.setBackground(COR_FUNDO);
         campo.setForeground(COR_TEXTO);
         campo.setCaretColor(COR_DESTAQUE);
         campo.setBorder(criarBordaNeonComPadding());
@@ -191,7 +174,6 @@ public class TelaResetSenha extends JFrame {
         return label;
     }
 
-    // --- Inner class BotaoGradiente (A mesma de antes) ---
     class BotaoGradiente extends JButton {
         private boolean isHovered = false;
         public BotaoGradiente(String text) {
@@ -227,7 +209,6 @@ public class TelaResetSenha extends JFrame {
         }
     }
 
-    // <-- MUDANÇA: BackgroundPanel reintroduzido -->
     class BackgroundPanel extends JPanel {
         private Image backgroundImage;
         public BackgroundPanel(Image backgroundImage) {
@@ -241,5 +222,4 @@ public class TelaResetSenha extends JFrame {
             }
         }
     }
-    // <-- FIM da Mudança -->
 }

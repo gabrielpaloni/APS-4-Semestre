@@ -3,14 +3,10 @@ package view;
 import controller.LojaController;
 import model.bean.Jogo;
 import model.bean.Usuario;
-import view.TelaPrincipalUsuario;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.net.URL;
 
 public class TelaCompra extends JDialog {
 

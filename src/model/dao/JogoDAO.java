@@ -110,9 +110,6 @@ public class JogoDAO {
         jogo.setNomeArquivoImagem(rs.getString("nome_imagem"));
         jogo.setTotalDownloads(rs.getInt("total_downloads"));
         jogo.setRequisitosSistema(rs.getString("requisitos_sistema"));
-        // jogo.setDataLancamento(rs.getString("data_lancamento"));
-        // jogo.setDataPublicacao(rs.getString("data_publicacao"));
-        // jogo.setIdVendedor(rs.getInt("id_vendedor"));
 
         return jogo;
     }

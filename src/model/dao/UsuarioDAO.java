@@ -19,7 +19,6 @@ public class UsuarioDAO {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
-            // --- SALVA A SENHA EM TEXTO PURO ---
             stmt.setString(3, usuario.getSenha());
             stmt.setString(4, usuario.getTipo());
 
@@ -52,8 +51,6 @@ public class UsuarioDAO {
                 usuario.setNome(rs.getString("nome"));
                 usuario.setEmail(rs.getString("email"));
                 usuario.setTipo(rs.getString("tipo"));
-                // Carregue outros dados se necessário (ex: data_cadastro)
-                // usuario.setDataCadastro(rs.getString("data_cadastro"));
 
                 return usuario;
             }
