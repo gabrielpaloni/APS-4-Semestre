@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.net.URL;
 import java.util.List;
 
 public class TelaAnalyticsJogos extends JFrame {
@@ -15,27 +16,48 @@ public class TelaAnalyticsJogos extends JFrame {
     private static final Color COR_TEXTO = new Color(220, 220, 220);
     private static final Color COR_DESTAQUE = new Color(0, 255, 255);
 
+    private Image backgroundImage;
+
     public TelaAnalyticsJogos(List<Jogo> jogosDoVendedor) {
         setTitle("Análise de Jogos");
-        setSize(1200, 600);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         getContentPane().setBackground(COR_FUNDO);
 
-        JPanel painelPrincipal = new JPanel(new BorderLayout());
-        painelPrincipal.setBorder(new EmptyBorder(10,10,10,10));
-        painelPrincipal.setBackground(COR_FUNDO);
+        try {
+            URL bgUrl = getClass().getClassLoader().getResource("analytics_bg.png");
+            if (bgUrl == null) {
+                throw new RuntimeException("Imagem de fundo 'analytics_bg.png' não encontrada! Verifique o nome na pasta 'resources'.");
+            }
+            this.backgroundImage = new ImageIcon(bgUrl).getImage();
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        splitPane.setResizeWeight(0.7);
-        splitPane.setBorder(null);
-        splitPane.setBackground(COR_FUNDO);
-        splitPane.setDividerSize(10);
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.backgroundImage = null;
+        }
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        tabbedPane.setOpaque(false);
+
+        JPanel painelJogos = createPainelJogos(jogosDoVendedor, this.backgroundImage);
+        tabbedPane.addTab("Jogos", painelJogos);
+
+        JPanel painelRequisitos = createPainelRequisitos(jogosDoVendedor, this.backgroundImage);
+        tabbedPane.addTab("Requisitos", painelRequisitos);
+
+        add(tabbedPane);
+    }
+
+    private JPanel createPainelJogos(List<Jogo> jogosDoVendedor, Image bgImage) {
+        BackgroundPanel painel = new BackgroundPanel(bgImage);
+        painel.setLayout(new BorderLayout());
+        painel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         String[] colunas = {"ID", "Título", "Vendas", "Última Venda", "Lançamento", "Publicação"};
         DefaultTableModel tableModel = new DefaultTableModel(colunas, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) { return false; }
+            @Override public boolean isCellEditable(int row, int column) { return false; }
         };
 
         for (Jogo jogo : jogosDoVendedor) {
@@ -69,48 +91,61 @@ public class TelaAnalyticsJogos extends JFrame {
         scrollPaneTabela.setBorder(BorderFactory.createLineBorder(COR_DESTAQUE));
         scrollPaneTabela.getViewport().setBackground(COR_PAINEL_FUNDO);
 
-        splitPane.setLeftComponent(scrollPaneTabela);
+        painel.add(scrollPaneTabela, BorderLayout.CENTER);
+        return painel;
+    }
 
-        JPanel painelDireita = new JPanel(new BorderLayout(0, 10));
-        painelDireita.setBackground(COR_FUNDO);
-        painelDireita.setBorder(BorderFactory.createLineBorder(COR_DESTAQUE));
+    private JPanel createPainelRequisitos(List<Jogo> jogosDoVendedor, Image bgImage) {
+        BackgroundPanel painelPrincipal = new BackgroundPanel(bgImage);
+        painelPrincipal.setLayout(new BorderLayout());
 
-        JLabel labelRequisitos = new JLabel("Requisitos do Sistema");
-        labelRequisitos.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        labelRequisitos.setForeground(COR_TEXTO);
-        labelRequisitos.setBorder(new EmptyBorder(10, 10, 0, 10));
-        painelDireita.add(labelRequisitos, BorderLayout.NORTH);
+        JPanel painelConteudo = new JPanel();
+        painelConteudo.setLayout(new BoxLayout(painelConteudo, BoxLayout.Y_AXIS));
+        painelConteudo.setOpaque(false);
+        painelConteudo.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-        JTextArea areaRequisitos = new JTextArea();
-        areaRequisitos.setBackground(COR_PAINEL_FUNDO);
-        areaRequisitos.setForeground(COR_TEXTO);
-        areaRequisitos.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        areaRequisitos.setEditable(false);
-        areaRequisitos.setLineWrap(true);
-        areaRequisitos.setWrapStyleWord(true);
-        areaRequisitos.setText("<- Clique em um jogo na tabela para ver os requisitos.");
-        areaRequisitos.setBorder(new EmptyBorder(5, 10, 10, 10));
+        for (Jogo jogo : jogosDoVendedor) {
+            JLabel labelTitulo = new JLabel(jogo.getNome());
+            labelTitulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
+            labelTitulo.setForeground(COR_DESTAQUE);
+            labelTitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
+            painelConteudo.add(labelTitulo);
 
-        JScrollPane scrollPaneRequisitos = new JScrollPane(areaRequisitos);
-        scrollPaneRequisitos.setBorder(null);
-        scrollPaneRequisitos.getViewport().setBackground(COR_PAINEL_FUNDO);
+            painelConteudo.add(Box.createRigidArea(new Dimension(0, 5)));
 
-        painelDireita.add(scrollPaneRequisitos, BorderLayout.CENTER);
+            JTextArea areaRequisitos = new JTextArea(jogo.getRequisitosSistema());
+            areaRequisitos.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+            areaRequisitos.setForeground(COR_TEXTO);
+            areaRequisitos.setOpaque(false);
+            areaRequisitos.setBackground(new Color(0, 0, 0, 0));
+            areaRequisitos.setEditable(false);
 
-        splitPane.setRightComponent(painelDireita);
+            areaRequisitos.setLineWrap(true);
+            areaRequisitos.setWrapStyleWord(true);
 
-        tabela.getSelectionModel().addListSelectionListener(event -> {
-            if (!event.getValueIsAdjusting()) {
-                int linhaSelecionada = tabela.getSelectedRow();
-                if (linhaSelecionada != -1) {
-                    String requisitosCompletos = jogosDoVendedor.get(linhaSelecionada).getRequisitosSistema();
-                    areaRequisitos.setText(requisitosCompletos);
-                    areaRequisitos.setCaretPosition(0);
-                }
-            }
-        });
+            areaRequisitos.setFocusable(false);
+            areaRequisitos.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        painelPrincipal.add(splitPane, BorderLayout.CENTER);
-        add(painelPrincipal);
+            painelConteudo.add(areaRequisitos);
+
+            painelConteudo.add(Box.createRigidArea(new Dimension(0, 15)));
+
+            JSeparator separator = new JSeparator();
+            separator.setForeground(COR_DESTAQUE);
+            separator.setBackground(COR_DESTAQUE);
+            separator.setAlignmentX(Component.LEFT_ALIGNMENT);
+            painelConteudo.add(separator);
+
+            painelConteudo.add(Box.createRigidArea(new Dimension(0, 15)));
+        }
+
+        JScrollPane scrollPane = new JScrollPane(painelConteudo);
+        scrollPane.setBorder(null);
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        painelPrincipal.add(scrollPane, BorderLayout.CENTER);
+        return painelPrincipal;
     }
 }

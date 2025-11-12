@@ -2,6 +2,7 @@ package model.dao;
 
 import database.ConexaoMySQL;
 import model.bean.Usuario;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +19,7 @@ public class UsuarioDAO {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
+            // --- SALVA A SENHA EM TEXTO PURO ---
             stmt.setString(3, usuario.getSenha());
             stmt.setString(4, usuario.getTipo());
 
@@ -32,7 +34,6 @@ public class UsuarioDAO {
     }
 
     public Usuario validarLogin(String email, String plainPassword, String tipo) {
-
         String sql = "SELECT * FROM usuarios WHERE email = ? AND senha = ? AND tipo = ?";
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
@@ -51,6 +52,8 @@ public class UsuarioDAO {
                 usuario.setNome(rs.getString("nome"));
                 usuario.setEmail(rs.getString("email"));
                 usuario.setTipo(rs.getString("tipo"));
+                // Carregue outros dados se necessário (ex: data_cadastro)
+                // usuario.setDataCadastro(rs.getString("data_cadastro"));
 
                 return usuario;
             }
@@ -92,7 +95,7 @@ public class UsuarioDAO {
 
         try {
             stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, novaSenhaPura); // <-- SALVANDO SENHA PURA
+            stmt.setString(1, novaSenhaPura);
             stmt.setString(2, email);
 
             int linhasAfetadas = stmt.executeUpdate();
@@ -104,5 +107,4 @@ public class UsuarioDAO {
             ConexaoMySQL.fecharConexao(conexao, stmt);
         }
     }
-
 }
