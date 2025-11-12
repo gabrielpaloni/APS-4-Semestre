@@ -75,18 +75,12 @@ public class JogoDAO {
         return jogos;
     }
 
-<<<<<<< HEAD
     public List<Jogo> listarJogosDaBiblioteca(int idUsuario) {
         List<Jogo> jogos = new ArrayList<>();
 
         String sql = "SELECT DISTINCT j.* FROM jogos j " +
                 "JOIN compras c ON j.id = c.id_jogo " +
                 "WHERE c.id_comprador = ?";
-=======
-    public List<Jogo> listarTodosJogos() {
-        List<Jogo> jogos = new ArrayList<>();
-        String sql = "SELECT id, titulo, descricao, preco, nome_imagem, total_downloads FROM jogos";
->>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
 
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
@@ -94,28 +88,10 @@ public class JogoDAO {
 
         try {
             stmt = conexao.prepareStatement(sql);
-<<<<<<< HEAD
             stmt.setInt(1, idUsuario);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 jogos.add(mapearJogo(rs));
-=======
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Jogo jogo = new Jogo();
-                jogo.setId(rs.getInt("id"));
-                jogo.setNome(rs.getString("titulo"));
-                jogo.setDescricao(rs.getString("descricao"));
-                jogo.setPreco(rs.getDouble("preco"));
-
-                String imagem = rs.getString("nome_imagem");
-                jogo.setNomeArquivoImagem(imagem);
-
-                jogo.setTotalDownloads(rs.getInt("total_downloads"));
-
-                jogos.add(jogo);
->>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -125,7 +101,6 @@ public class JogoDAO {
         return jogos;
     }
 
-<<<<<<< HEAD
     private Jogo mapearJogo(ResultSet rs) throws SQLException {
         Jogo jogo = new Jogo();
         jogo.setId(rs.getInt("id"));
@@ -155,14 +130,6 @@ public class JogoDAO {
         String sql = "UPDATE jogos SET total_downloads = total_downloads + 1 WHERE id = ?";
         Connection conexao = ConexaoMySQL.getConexao();
         PreparedStatement stmt = null;
-=======
-    public void registrarDownload(int idJogo) {
-        String sql = "UPDATE jogos SET total_downloads = total_downloads + 1 WHERE id = ?";
-
-        Connection conexao = ConexaoMySQL.getConexao();
-        PreparedStatement stmt = null;
-
->>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, idJogo);
