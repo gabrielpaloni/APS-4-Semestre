@@ -78,6 +78,7 @@ public class TelaLogin extends JFrame {
         gbc.insets = new Insets(0, 0, 8, 0);
         painelConteudo.add(txtEmail, gbc);
 
+        // Label de Senha
         JLabel lblSenha = criarLabel("Senha");
         gbc.gridy = 3;
         gbc.gridwidth = 2;
@@ -85,6 +86,10 @@ public class TelaLogin extends JFrame {
         gbc.insets = new Insets(8, 0, 2, 0);
         painelConteudo.add(lblSenha, gbc);
 
+<<<<<<< HEAD
+=======
+        // Campo de Senha com botão de olho
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         txtSenha = criarCampoDeSenha();
         btnVerSenha = criarBotaoVerSenha();
         JPanel painelSenhaComBotao = new JPanel(new BorderLayout());
@@ -98,6 +103,10 @@ public class TelaLogin extends JFrame {
         gbc.insets = new Insets(0, 0, 8, 0);
         painelConteudo.add(painelSenhaComBotao, gbc);
 
+<<<<<<< HEAD
+=======
+        // Botões de Rádio
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         rdoUsuario = criarRadioButton("Usuário", true);
         rdoVendedor = criarRadioButton("Vendedor", false);
         ButtonGroup grpTipoUsuario = new ButtonGroup();
@@ -111,6 +120,7 @@ public class TelaLogin extends JFrame {
         gbc.gridwidth = 2;
         painelConteudo.add(painelRadios, gbc);
 
+        // Botão Entrar
         btnEntrar = new BotaoGradiente("Entrar");
         btnEntrar.setPreferredSize(new Dimension(300, 45));
         gbc.gridy = 6;
@@ -118,6 +128,10 @@ public class TelaLogin extends JFrame {
         gbc.insets = new Insets(15, 0, 15, 0);
         painelConteudo.add(btnEntrar, gbc);
 
+<<<<<<< HEAD
+=======
+        // Links
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         lblCadastrese = criarLink("Cadastre-se");
         lblEsqueciSenha = criarLink("Esqueci minha senha");
         JPanel painelLinks = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
@@ -139,6 +153,11 @@ public class TelaLogin extends JFrame {
 
     private void carregarImagens() {
         try {
+<<<<<<< HEAD
+=======
+            // 1. Use o ClassLoader para procurar a partir da raiz do classpath.
+            // 2. Use APENAS o nome do arquivo.
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
 
             URL bgUrl = getClass().getClassLoader().getResource("login_bg.png");
             URL olhoAbertoUrl = getClass().getClassLoader().getResource("olho_aberto.png");
@@ -146,17 +165,32 @@ public class TelaLogin extends JFrame {
             URL radioOnUrl = getClass().getClassLoader().getResource("radio_on.png");
             URL radioOffUrl = getClass().getClassLoader().getResource("radio_off.png");
 
+<<<<<<< HEAD
             if (bgUrl == null || olhoAbertoUrl == null || olhoFechadoUrl == null || radioOnUrl == null || radioOffUrl == null) {
 
                 throw new RuntimeException("Falha ao carregar um or mais recursos de imagem. Verifique os nomes dos arquivos na pasta 'resources'.");
             }
 
+=======
+            // 3. Verificação de Nulo: Esta é a parte mais importante
+            //    Se alguma URL for nula, o arquivo não foi encontrado.
+            if (bgUrl == null || olhoAbertoUrl == null || olhoFechadoUrl == null || radioOnUrl == null || radioOffUrl == null) {
+                // Lança um erro claro no console
+                throw new RuntimeException("Falha ao carregar um or mais recursos de imagem. Verifique os nomes dos arquivos na pasta 'resources'.");
+            }
+
+            // 4. Agora que sabemos que os arquivos existem, podemos criar os ícones
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
             imgBackground = new ImageIcon(bgUrl).getImage();
             iconOlhoAberto = new ImageIcon(olhoAbertoUrl);
             iconOlhoFechado = new ImageIcon(olhoFechadoUrl);
             iconRadioOn = new ImageIcon(radioOnUrl);
             iconRadioOff = new ImageIcon(radioOffUrl);
 
+<<<<<<< HEAD
+=======
+            // 5. Redimensionamento
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
             iconOlhoAberto = redimensionarIcone(iconOlhoAberto, 20, 20);
             iconOlhoFechado = redimensionarIcone(iconOlhoFechado, 20, 20);
             iconRadioOn = redimensionarIcone(iconRadioOn, 16, 16);
@@ -265,7 +299,11 @@ public class TelaLogin extends JFrame {
         campo.setBackground(COR_FUNDO);
         campo.setForeground(COR_TEXTO);
         campo.setCaretColor(COR_DESTAQUE);
+<<<<<<< HEAD
         campo.setBorder(null);
+=======
+        campo.setBorder(null); // Borda aplicada no painel container
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         campo.setOpaque(true);
         campo.setEchoChar('•');
         return campo;
@@ -282,6 +320,10 @@ public class TelaLogin extends JFrame {
         return radio;
     }
 
+<<<<<<< HEAD
+=======
+    // Getters
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
     public String getEmail() {
         return txtEmail.getText();
     }
@@ -298,6 +340,10 @@ public class TelaLogin extends JFrame {
         JOptionPane.showMessageDialog(this, mensagem);
     }
 
+<<<<<<< HEAD
+=======
+    // Inner class BotaoGradiente
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
     class BotaoGradiente extends JButton {
         private boolean isHovered = false;
 
@@ -342,6 +388,10 @@ public class TelaLogin extends JFrame {
         }
     }
 
+<<<<<<< HEAD
+=======
+    // Inner class BackgroundPanel
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
     class BackgroundPanel extends JPanel {
         private Image backgroundImage;
 

@@ -4,6 +4,7 @@ import controller.CadastroController;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -11,7 +12,11 @@ import java.net.URL;
 
 public class TelaCadastro extends JFrame {
 
+<<<<<<< HEAD
 
+=======
+    // --- CORES E FONTES UNIFICADAS (DA TELA LOGIN) ---
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
     private static final Color COR_FUNDO = new Color(18, 23, 35);
     private static final Color COR_TEXTO = new Color(220, 220, 220);
     private static final Color COR_DESTAQUE = new Color(0, 255, 255);
@@ -21,7 +26,11 @@ public class TelaCadastro extends JFrame {
     private static final Font FONTE_TITULO = new Font("Segoe UI", Font.BOLD, 28);
     private static final Font FONTE_LABEL = new Font("Segoe UI", Font.BOLD, 12);
 
+<<<<<<< HEAD
 
+=======
+    // --- Componentes ---
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
     private JTextField txtNome, txtEmail;
     private JPasswordField txtSenha, txtConfirmaSenha;
     private JRadioButton rdoUsuario, rdoVendedor;
@@ -29,6 +38,10 @@ public class TelaCadastro extends JFrame {
     private JLabel lblJaTenhoConta;
     private CadastroController controller;
 
+<<<<<<< HEAD
+=======
+    // --- Ícones ---
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
     private ImageIcon iconOlhoAberto, iconOlhoFechado, iconRadioOn, iconRadioOff;
     private JToggleButton btnVerSenha, btnVerConfirmaSenha;
     private Image imgBackground;
@@ -40,6 +53,7 @@ public class TelaCadastro extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
+<<<<<<< HEAD
         carregarImagens();
 
         BackgroundPanel painelPrincipal = new BackgroundPanel(imgBackground);
@@ -48,10 +62,23 @@ public class TelaCadastro extends JFrame {
 
         JPanel painelConteudo = new JPanel(new GridBagLayout());
         painelConteudo.setOpaque(false);
+=======
+        carregarImagens(); // Carrega todos os ícones e fundo
+
+        // --- ESTRUTURA PRINCIPAL (COMO A TELA LOGIN) ---
+        BackgroundPanel painelPrincipal = new BackgroundPanel(imgBackground);
+        painelPrincipal.setLayout(new GridBagLayout()); // Layout centralizado
+        setContentPane(painelPrincipal);
+
+        // Painel de conteúdo que ficará no centro
+        JPanel painelConteudo = new JPanel(new GridBagLayout());
+        painelConteudo.setOpaque(false); // Transparente
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 0, 5, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
+        // --- Título ---
         JLabel lblTitulo = new JLabel("Crie sua Conta");
         lblTitulo.setFont(FONTE_TITULO);
         lblTitulo.setForeground(COR_TEXTO);
@@ -62,6 +89,7 @@ public class TelaCadastro extends JFrame {
         gbc.insets = new Insets(8, 0, 20, 0);
         painelConteudo.add(lblTitulo, gbc);
 
+        // --- Nome (ou Nome da Loja) ---
         JLabel lblNome = criarLabel("Nome (ou Nome da Loja)");
         gbc.gridy = 1;
         gbc.gridwidth = 2;
@@ -125,6 +153,10 @@ public class TelaCadastro extends JFrame {
         gbc.insets = new Insets(0, 0, 8, 0);
         painelConteudo.add(painelConfirmaSenha, gbc);
 
+<<<<<<< HEAD
+=======
+        // --- Botões de Rádio ---
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         rdoUsuario = criarRadioButton("Usuário", tipoUsuarioInicial.equals("user"));
         rdoVendedor = criarRadioButton("Vendedor", tipoUsuarioInicial.equals("vendedor"));
         ButtonGroup grpTipoUsuario = new ButtonGroup();
@@ -138,6 +170,7 @@ public class TelaCadastro extends JFrame {
         gbc.gridwidth = 2;
         painelConteudo.add(painelRadios, gbc);
 
+        // --- Botão Cadastrar ---
         btnCadastrar = new BotaoGradiente("Cadastrar");
         btnCadastrar.setPreferredSize(new Dimension(300, 45));
         gbc.gridy = 10;
@@ -145,6 +178,10 @@ public class TelaCadastro extends JFrame {
         gbc.insets = new Insets(15, 0, 15, 0);
         painelConteudo.add(btnCadastrar, gbc);
 
+<<<<<<< HEAD
+=======
+        // --- Link "Já tenho conta" ---
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         lblJaTenhoConta = criarLink("Já tenho uma conta. Fazer login.");
         JPanel painelLink = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         painelLink.setOpaque(false);
@@ -153,26 +190,47 @@ public class TelaCadastro extends JFrame {
         gbc.gridwidth = 2;
         gbc.insets = new Insets(8, 0, 8, 0);
         painelConteudo.add(painelLink, gbc);
+<<<<<<< HEAD
+=======
+
+        // Adiciona o painel de conteúdo ao painel principal
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         painelPrincipal.add(painelConteudo, new GridBagConstraints());
 
         configurarListeners();
 
+<<<<<<< HEAD
         setSize(500, 750);
+=======
+        setSize(500, 750); // Define um tamanho fixo (maior que o login)
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         setLocationRelativeTo(null);
     }
 
     private void carregarImagens() {
         try {
+<<<<<<< HEAD
+=======
+            // Imagem de fundo (mesma da tela de login)
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
             URL bgUrl = getClass().getClassLoader().getResource("login_bg.png");
             if (bgUrl == null) throw new RuntimeException("Imagem 'login_bg.png' não encontrada.");
             this.imgBackground = new ImageIcon(bgUrl).getImage();
 
+<<<<<<< HEAD
+=======
+            // Ícones de Olho
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
             URL olhoAbertoUrl = getClass().getClassLoader().getResource("olho_aberto.png");
             URL olhoFechadoUrl = getClass().getClassLoader().getResource("olho_fechado.png");
             if (olhoAbertoUrl == null || olhoFechadoUrl == null) throw new RuntimeException("Ícones de olho não encontrados.");
             iconOlhoAberto = redimensionarIcone(new ImageIcon(olhoAbertoUrl), 20, 20);
             iconOlhoFechado = redimensionarIcone(new ImageIcon(olhoFechadoUrl), 20, 20);
 
+<<<<<<< HEAD
+=======
+            // Ícones de Rádio
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
             URL radioOnUrl = getClass().getClassLoader().getResource("radio_on.png");
             URL radioOffUrl = getClass().getClassLoader().getResource("radio_off.png");
             if (radioOnUrl == null || radioOffUrl == null) throw new RuntimeException("Ícones de rádio não encontrados.");
@@ -191,6 +249,11 @@ public class TelaCadastro extends JFrame {
         return new ImageIcon(img);
     }
 
+<<<<<<< HEAD
+=======
+    // --- MÉTODOS DE ESTILO (COMO DA TELA LOGIN) ---
+
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
     private Border criarBordaNeonComPadding() {
         Border linhaBorda = BorderFactory.createLineBorder(COR_DESTAQUE, 1, true);
         Border padding = new EmptyBorder(8, 10, 8, 10);
@@ -221,7 +284,11 @@ public class TelaCadastro extends JFrame {
         campo.setBackground(COR_FUNDO);
         campo.setForeground(COR_TEXTO);
         campo.setCaretColor(COR_DESTAQUE);
+<<<<<<< HEAD
         campo.setBorder(null);
+=======
+        campo.setBorder(null); // Borda é aplicada no painel container
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         campo.setOpaque(true);
         campo.setEchoChar('•');
         return campo;
@@ -248,7 +315,11 @@ public class TelaCadastro extends JFrame {
         painel.setOpaque(false);
         painel.add(campoSenha, BorderLayout.CENTER);
         painel.add(botaoOlho, BorderLayout.EAST);
+<<<<<<< HEAD
         painel.setBorder(criarBordaNeonComPadding());
+=======
+        painel.setBorder(criarBordaNeonComPadding()); // Borda neon!
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         return painel;
     }
 
@@ -259,6 +330,10 @@ public class TelaCadastro extends JFrame {
         radio.setOpaque(false);
         radio.setFocusPainted(false);
 
+<<<<<<< HEAD
+=======
+        // Correções que fizemos na TelaLogin
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
         radio.setContentAreaFilled(false);
         radio.setBorderPainted(false);
 
@@ -285,6 +360,10 @@ public class TelaCadastro extends JFrame {
         return label;
     }
 
+<<<<<<< HEAD
+=======
+    // --- Listeners (semelhante ao que já existia) ---
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
     private void configurarListeners() {
         btnCadastrar.addActionListener(controller::acaoBotaoCadastrar);
 
@@ -294,7 +373,7 @@ public class TelaCadastro extends JFrame {
         lblJaTenhoConta.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                dispose();
+                dispose(); // Apenas fecha a tela de cadastro
             }
         });
     }
@@ -311,6 +390,7 @@ public class TelaCadastro extends JFrame {
         });
     }
 
+    // --- Getters (sem alteração) ---
     public String getNome() { return txtNome.getText(); }
     public String getEmail() { return txtEmail.getText(); }
     public String getSenha() { return new String(txtSenha.getPassword()); }
@@ -318,6 +398,10 @@ public class TelaCadastro extends JFrame {
     public String getTipoUsuario() { return rdoUsuario.isSelected() ? "user" : "vendedor"; }
     public void exibirMensagem(String mensagem) { JOptionPane.showMessageDialog(this, mensagem); }
 
+<<<<<<< HEAD
+=======
+    // --- Inner class BotaoGradiente (sem alteração) ---
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
     class BotaoGradiente extends JButton {
         private boolean isHovered = false;
         public BotaoGradiente(String text) {
@@ -352,6 +436,11 @@ public class TelaCadastro extends JFrame {
             super.paintComponent(g);
         }
     }
+<<<<<<< HEAD
+=======
+
+    // --- Inner class BackgroundPanel (Adicionada) ---
+>>>>>>> 762f85b7f0e7b4f055b6958eee7e4140019a5410
     class BackgroundPanel extends JPanel {
         private Image backgroundImage;
         public BackgroundPanel(Image backgroundImage) {
