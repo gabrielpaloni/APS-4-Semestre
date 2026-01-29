@@ -1,90 +1,45 @@
-# APS 4º Semestre - PixelHaus
+# 4th Semester APS - PixelHaus
 
+Supervised Practical Activity (APS) project for the 4th Semester, focused on creating a game sales management system in Java.
 
+## 🎯 Project Objectives
 
-Projeto da Atividade Prática Supervisionada (APS) do 4º Semestre, focado na criação de um sistema de gestão de vendas de jogos em Java.
+This work was developed to apply and improve knowledge in:
 
+* **MVC Design Pattern:** Code organization separating business logic (Model), interface (View), and control (Controller).
+* **DAO Design Pattern:** Abstraction of data access (`JogoDAO`, `UsuarioDAO`) to facilitate database connection maintenance.
+* **Java Swing:** Improvement in the use of Layouts and visual components for creating user interfaces (`TelaLogin`, `TelaCadastro`, etc.).
+* **Database Connection:** Utilization of JDBC to connect the application to a MySQL database, with connection management (Singleton).
 
+## 📁 Project Structure
 
-## 🎯 Objetivos do Projeto
+The project follows the MVC and DAO architecture:
 
+* `controller/`: Contains classes that bridge the View and the Model (e.g., `LoginController`, `CadastroController`).
+* `model/bean/`: Contains entity classes (POJOs) representing the data (e.g., `Jogo`, `Usuario`).
+* `model/dao/`: Contains Data Access Object classes responsible for communicating with the database (e.g., `UsuarioDAO`).
+* `view/`: Contains the application screens (JFrames/JPanels) (e.g., `TelaLogin`).
+* `database/`: Contains the MySQL connection management class.
+* `resources/`: Contains non-Java files, such as images and the configuration file.
 
+## 🚀 How to Run
 
-Este trabalho foi desenvolvido para aplicar e aprimorar conhecimentos em:
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/gabrielpaloni/APS-4-Semestre.git](https://github.com/gabrielpaloni/APS-4-Semestre.git)
+    ```
+2.  **Configure the Database:**
+    * Open your MySQL manager (Workbench, DBeaver, etc.).
+    * Execute the script `database/pixelhaus_script.sql` to create the `pixelhaus` database and all necessary tables.
+    * Go to the `/resources/` folder.
+    * Rename the file `config.properties.example` to `config.properties`.
+    * Open `config.properties` and fill it with your MySQL credentials.
+3.  **Open in IDE:**
+    * Open the project in IntelliJ IDEA.
+    * Locate the `Main.java` file and run it.
 
-
-
-* **Padrão de Projeto MVC:** Organização do código separando a lógica de negócio (Model), a interface (View) e o controle (Controller).
-
-* **Padrão de Projeto DAO:** Abstração do acesso aos dados (`JogoDAO`, `UsuarioDAO`) para facilitar a manutenção da conexão com o banco de dados.
-
-* **Java Swing:** Aprimoramento no uso de Layouts e componentes visuais para a criação de interfaces de usuário (`TelaLogin`, `TelaCadastro`, etc.).
-
-* **Conexão com Banco de Dados:** Utilização de JDBC para conectar a aplicação a um banco de dados MySQL, com gerenciamento de conexão (Singleton).
-
-
-
-## 📁 Estrutura do Projeto
-
-
-
-O projeto segue a arquitetura MVC e DAO:
-
-
-
-* `controller/`: Contém as classes que fazem a ponte entre a View e o Model (ex: `LoginController`, `CadastroController`).
-
-* `model/bean/`: Contém as classes de entidade (POJOs) que representam os dados (ex: `Jogo`, `Usuario`).
-
-* `model/dao/`: Contém as classes de Acesso a Dados (Data Access Object) responsáveis pela comunicação com o banco (ex: `UsuarioDAO`).
-
-* `view/`: Contém as telas (JFrames/JPanels) da aplicação (ex: `TelaLogin`).
-
-* `database/`: Contém a classe de gerenciamento da conexão com o MySQL.
-
-* `resources/`: Contém arquivos não-Java, como imagens e o arquivo de configuração.
-
-
-
-## 🚀 Como Executar
-
-
-
-1.  **Clone o repositório:**
-
-   ```bash
-
-     git clone [https://github.com/gabrielpaloni/APS-4-Semestre.git](https://github.com/gabrielpaloni/APS-4-Semestre.git)
-
-   ```
-
-2.  **Configure o Banco de Dados:**
-
-      * Abra seu gerenciador MySQL (Workbench, DBeaver, etc.).
-
-      * Execute o script `database/pixelhaus\_script.sql` para criar o banco `pixelhaus` e todas as tabelas necessárias.
-
-      * Vá até a pasta `/resources/`.
-
-      * Renomeie o arquivo `config.properties.example` para `config.properties`.
-
-      * Abra o `config.properties` e preencha com suas credenciais do MySQL.
-
-3.  **Abra na IDE:**
-
-      * Abra o projeto no IntelliJ IDEA.
-
-      * Localize o arquivo `Main.java` e execute-o.
-
-
-
-## 👨‍💻 Autores
-
-
+## 👨‍💻 Authors
 
 * Gabriel S. B. Paloni
-
 * Ana Paula Garbin
-
-* Graziela Lopes Romualdo 
-
+* Graziela Lopes Romualdo
